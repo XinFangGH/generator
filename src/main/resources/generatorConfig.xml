@@ -7,9 +7,14 @@
 
     <properties resource="application.yml"/>
     <!-- mysql驱动的位置 这个是MySQL连接的jar包，你需要指定你自己计算机上的jar包的位置-->
-    <classPathEntry location="E:\maven\repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
+    <classPathEntry location="D:\apache-maven-3.5.4\local\mysql\mysql-connector-java\8.0.13"/>
 
     <context id="Tables" targetRuntime="MyBatis3">
+
+        <plugin type="config.GeneratorPlugin">
+            <property name="author" value="tangwenbo"/>
+            <property name="dateFormat" value="yyyy/MM/dd HH:mm"/>
+        </plugin>
 
         <!-- 注释 -->
         <commentGenerator>
@@ -20,11 +25,20 @@
         </commentGenerator>
 
         <!-- JDBC连接 其中connectionURL后面的newtest改为你创建的数据库，紧跟在后面是数据库连接的账户和密码-->
+        <!--支付中心-->
+<!--        <jdbcConnection-->
+<!--                driverClass="com.mysql.cj.jdbc.Driver"-->
+<!--                connectionURL="jdbc:mysql://drdsgfaf45xj3003public.drds.aliyuncs.com:3306/payment_center_develop?characterEncoding=UTF8&amp;serverTimezone=Asia/Shanghai"-->
+<!--                userId="payment_center_develop"-->
+<!--                password="payMent2021_01_14">-->
+<!--        </jdbcConnection>-->
+        <!--开发环境-->
         <jdbcConnection
-                driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://rm-m5ezpfo9l120p07v0fo.mysql.rds.aliyuncs.com:3306/content"
-                userId="xfanread"
-                password="Fdxdz2017">
+                driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://121.89.214.223:3389/jdd_payment_dev?serverTimezone=Asia/Shanghai&amp;useSSL=true&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"
+                userId="jdd_payment_dev"
+                password="jdd_payment_dev123">
+            <property name="useInformationSchema" value="true"/>
         </jdbcConnection>
 
         <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
@@ -33,10 +47,12 @@
         <javaTypeResolver>
             <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
             <property name="forceBigDecimals" value="false"/>
+            <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
         <!-- 生成实体类地址 这里需要你改动，其中targetPackage需要根据你自己创建的目录进行改动 -->
-        <javaModelGenerator targetPackage="com.xfanread.service.impl.content.po"
+<!--        <javaModelGenerator targetPackage="com.jdd.zhujia.newpayment.biz.pojo.entity"-->
+        <javaModelGenerator targetPackage="com.jdd.intergration.payment.base.pojo.entity"
                             targetProject="src/main/java">
             <!-- 从数据库返回的值被清理前后的空格 -->
             <property name="trimStrings" value="true"/>
@@ -51,20 +67,21 @@
         </sqlMapGenerator>
 
         <!-- 生成mapper xml对应Client   这里需要改动targetPackage，依据你自己的工程-->
-        <javaClientGenerator targetPackage="com.xfanread.service.impl.content.dao"
+<!--        <javaClientGenerator targetPackage="com.jdd.zhujia.newpayment.biz.dao.pay"-->
+        <javaClientGenerator targetPackage="com.jdd.intergration.payment.base.dao"
                              targetProject="src/main/java" type="XMLMAPPER">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
-            <property name="enableSubPackages" value="false"/>
+            <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- 配置表信息 -->
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
             是否生成 example类 -->
 
-        <table schema="content" tableName="t_book_esoterica_record"
-               domainObjectName="BookEsotericaRecord" enableCountByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               enableUpdateByExample="true">
+        <table schema="jdd_payment_dev" tableName="pay_user_wallet"  mapperName="PayUserWalletMapper"
+               domainObjectName="PayUserWallet" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               >
         </table>
 
     </context>
