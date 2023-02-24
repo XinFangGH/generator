@@ -29,24 +29,28 @@ public class GeneratorPlugin extends PluginAdapter {
         String dateFormat = properties.getProperty("dateFormat");
         // 添加import
         topLevelClass.addImportedType("lombok.Data");
+        topLevelClass.addImportedType("lombok.AllArgsConstructor");
+        topLevelClass.addImportedType("lombok.Builder");
+        topLevelClass.addImportedType("lombok.NoArgsConstructor");
         // 获取表注释
         if (StringUtility.stringHasValue(introspectedTable.getRemarks())) {
-            topLevelClass.addImportedType("lombok.Data");
             topLevelClass.addJavaDocLine("/**");
             topLevelClass.addJavaDocLine(" * " + introspectedTable.getRemarks());
             topLevelClass.addJavaDocLine(" *");
-            topLevelClass.addJavaDocLine(" * @author: " + author);
-            topLevelClass.addJavaDocLine(" * @date: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateFormat)));
+            topLevelClass.addJavaDocLine(" * @author " + author);
+            topLevelClass.addJavaDocLine(" * @date " + LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateFormat)));
             topLevelClass.addJavaDocLine(" */");
-            topLevelClass.addAnnotation("@Data");
         } else {
             topLevelClass.addImportedType("lombok.Data");
             topLevelClass.addJavaDocLine("/**");
-            topLevelClass.addJavaDocLine(" * @author: " + author);
-            topLevelClass.addJavaDocLine(" * @date: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateFormat)));
+            topLevelClass.addJavaDocLine(" * @author " + author);
+            topLevelClass.addJavaDocLine(" * @date " + LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateFormat)));
             topLevelClass.addJavaDocLine(" */");
-            topLevelClass.addAnnotation("@Data");
         }
+        topLevelClass.addAnnotation("@Data");
+        topLevelClass.addAnnotation("@Builder");
+        topLevelClass.addAnnotation("@AllArgsConstructor");
+        topLevelClass.addAnnotation("@NoArgsConstructor");
         return true;
 
     }
@@ -75,8 +79,8 @@ public class GeneratorPlugin extends PluginAdapter {
         // 添加Mapper的import
         interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Mapper"));
         interfaze.addJavaDocLine("/**");
-        interfaze.addJavaDocLine(" * @author: " + author);
-        interfaze.addJavaDocLine(" * @date: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateFormat)));
+        interfaze.addJavaDocLine(" * @author " + author);
+        interfaze.addJavaDocLine(" * @date " + LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateFormat)));
         interfaze.addJavaDocLine(" */");
         // 添加Mapper的注解
         interfaze.addAnnotation("@Mapper");

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -19,6 +19,26 @@
     </properties>
 
     <dependencies>
+        <!--mybatis-plus引入  start-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.3.4</version>
+        </dependency>
+        <!--mybatis-plus代码生成器-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+        <!--velocity模板 mybatis-plus代码生成器使用引擎-->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <!--mybatis-plus引入  end-->
+
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -30,7 +50,6 @@
             <artifactId>mybatis-typehandlers-jsr310</artifactId>
             <version>1.0.2</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.mybatis.generator</groupId>
@@ -76,7 +95,7 @@
                         <artifactId>mysql-connector-java</artifactId>
                         <version>8.0.15</version>
                     </dependency>
-            </dependencies>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
